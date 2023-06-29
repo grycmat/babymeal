@@ -35,9 +35,9 @@ class EntryScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('Appbar Title'),
+        title: const Text('Appbar Title'),
       ),
-      body: FirstRunScreen(),
+      body: const FirstRunScreen(),
     );
   }
 }
