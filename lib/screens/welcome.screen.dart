@@ -50,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
                   shape: const StadiumBorder(),
                   minimumSize: Size(double.infinity, 60)),
               onPressed: () {
-                Navigator.pushNamed(context, '/add_baby');
+                Navigator.pushNamed(context, '/first_run');
               },
               child: const Text('Start'),
             ),

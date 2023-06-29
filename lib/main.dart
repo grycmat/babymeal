@@ -1,5 +1,5 @@
 import 'package:babymeal/screens/add_baby_form.screen.dart';
-import 'package:babymeal/screens/welcome.screen.dart';
+import 'package:babymeal/screens/first_run.screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,13 +15,14 @@ class BabyMeal extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
           useMaterial3: true,
           fontFamily: 'Comfortaa',
         ),
         home: const EntryScreen(),
         routes: {
           '/add_baby': (context) => const AddBabyFormScreen(),
+          '/first_run': (context) => const FirstRunScreen(),
         });
   }
 }
@@ -36,7 +37,7 @@ class EntryScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text('Appbar Title'),
       ),
-      body: WelcomeScreen(),
+      body: FirstRunScreen(),
     );
   }
 }
