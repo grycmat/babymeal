@@ -29,13 +29,13 @@ class DashboardContentWidget extends StatelessWidget {
             children: [
               DashboardItem(
                 flex: 2,
-                title: '12',
-                subtitle: 'Growth',
+                title: '1',
+                subtitle: 'Mood',
               ),
               DashboardItem(
                 flex: 3,
-                title: '1',
-                subtitle: 'Mood',
+                title: '12',
+                subtitle: 'Growth',
               ),
             ],
           ),
@@ -85,5 +85,16 @@ class DashboardItem extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class LastEventWidget extends StatelessWidget {
+  const LastEventWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        flex: 1,
+        child: Padding(padding: const EdgeInsets.all(12), child: Card()));
   }
 }

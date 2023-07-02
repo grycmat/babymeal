@@ -1,5 +1,6 @@
 import 'package:babymeal/dependencies_config.dart';
 import 'package:babymeal/screens/add_baby_form.screen.dart';
+import 'package:babymeal/screens/add_feeding.screen.dart';
 import 'package:babymeal/screens/dashboard.screen.dart';
 import 'package:babymeal/screens/first_run.screen.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class EntryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: DashboardScreen(),
+      body: AddFeedingScreen(),
     );
   }
 }
