@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class WelcomeWidget extends StatelessWidget {
-  const WelcomeWidget({Key? key}) : super(key: key);
+  const WelcomeWidget({Key? key, required this.animateTo}) : super(key: key);
+
+  final Function animateTo;
 
   Animate _animate({required Widget child, Duration delay = Duration.zero}) {
     return Animate(
@@ -32,7 +34,6 @@ class WelcomeWidget extends StatelessWidget {
           ),
         ),
         _animate(
-          delay: const Duration(milliseconds: 200),
           child: const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
@@ -50,7 +51,7 @@ class WelcomeWidget extends StatelessWidget {
           child: const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
-              "Welcome to BTB! Track your baby's feeding and growth with ease!",
+              "Welcome to BMB! Track your baby's feeding and growth with ease!",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Color(0xFF737373),
@@ -68,7 +69,7 @@ class WelcomeWidget extends StatelessWidget {
                   shape: const StadiumBorder(),
                   minimumSize: const Size(double.infinity, 60)),
               onPressed: () {
-                Navigator.pushNamed(context, '/first_run');
+                animateTo(1);
               },
               child: const Text('Start'),
             ),
