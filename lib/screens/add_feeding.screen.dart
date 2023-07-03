@@ -14,6 +14,18 @@ class _AddFeedingScreenState extends State<AddFeedingScreen> {
   final double _pillHeight = 80;
   bool _isTimerRunning = false;
   double _dx = 60;
+  List tempFeedingLog = [];
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() {
+        _dx = (MediaQuery.of(context).size.width - _pillWidth) / 2;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,14 +47,6 @@ class _AddFeedingScreenState extends State<AddFeedingScreen> {
                     decoration: BoxDecoration(
                       color: Colors.pink.shade100,
                       borderRadius: BorderRadius.circular(40),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Icon(Icons.baby_changing_station),
-                        Icon(Icons.baby_changing_station),
-                      ],
                     ),
                   ),
                   Positioned(
@@ -66,7 +70,9 @@ class _AddFeedingScreenState extends State<AddFeedingScreen> {
                         }
 
                         setState(() {
-                          _dx = 60;
+                          _dx =
+                              (MediaQuery.of(context).size.width - _pillWidth) /
+                                  2;
                           _isTimerRunning = false;
                         });
                       },
@@ -88,6 +94,29 @@ class _AddFeedingScreenState extends State<AddFeedingScreen> {
                     ),
                   )
                 ],
+              ),
+              TempFeedingLogWidget(),
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Container(
+                          width: 120, child: Center(child: Text('Cancel'))),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.pink.shade100,
+                      ),
+                      onPressed: () {},
+                      child: Container(
+                          width: 120, child: Center(child: Text('Save'))),
+                    ),
+                  ],
+                ),
               )
             ],
           ),
@@ -126,11 +155,19 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print('build');
     return Container(
         child: Text(
       _timeElapsed.toString(),
       style: Theme.of(context).textTheme.headlineLarge,
     ));
+  }
+}
+
+class TempFeedingLogWidget extends StatelessWidget {
+  const TempFeedingLogWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
