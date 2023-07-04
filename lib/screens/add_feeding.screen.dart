@@ -1,5 +1,6 @@
-import 'dart:async';
-
+import 'package:babymeal/models/feeding_log/temp_feeding_log_item.model.dart';
+import 'package:babymeal/widgets/feeding/temp_feeding_log.widget.dart';
+import 'package:babymeal/widgets/timer/timer.widget.dart';
 import 'package:flutter/material.dart';
 
 class AddFeedingScreen extends StatefulWidget {
@@ -13,8 +14,12 @@ class _AddFeedingScreenState extends State<AddFeedingScreen> {
   final double _pillWidth = 120;
   final double _pillHeight = 80;
   bool _isTimerRunning = false;
+  ValueNotifier time = ValueNotifier<String>('');
+  final ValueNotifier<BreastSide> _side =
+      ValueNotifier<BreastSide>(BreastSide.none);
+
   double _dx = 60;
-  List tempFeedingLog = [];
+  final List<TempFeedingLogModel> _tempFeedingLog = [];
 
   @override
   void initState() {
@@ -25,6 +30,18 @@ class _AddFeedingScreenState extends State<AddFeedingScreen> {
     });
     super.initState();
   }
+
+  void _addItem(Duration time, BreastSide side) {
+    print('add item');
+    print(time.toString());
+    var feedItem = TempFeedingLogModel(
+      time: time,
+      breastSide: _side.value,
+    );
+    _tempFeedingLog.add(feedItem);
+  }
+
+  void _save() {}
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +55,11 @@ class _AddFeedingScreenState extends State<AddFeedingScreen> {
         child: Center(
           child: Column(
             children: [
-              TimerWidget(isRunning: _isTimerRunning),
+              TimerWidget(
+                isRunning: _isTimerRunning,
+                addItem: _addItem,
+                side: _side,
+              ),
               Stack(
                 children: [
                   Container(
@@ -57,23 +78,27 @@ class _AddFeedingScreenState extends State<AddFeedingScreen> {
                           setState(() {
                             _dx =
                                 MediaQuery.of(context).size.width - _pillWidth;
-                            _isTimerRunning = true;
+                            if (!_isTimerRunning) _isTimerRunning = true;
                           });
+                          _side.value = BreastSide.right;
                           return;
                         }
                         if (_dx < 60 && !_isTimerRunning) {
                           setState(() {
-                            _isTimerRunning = true;
+                            if (!_isTimerRunning) _isTimerRunning = true;
                             _dx = 0;
                           });
+                          _side.value = BreastSide.left;
                           return;
                         }
+
+                        _side.value = BreastSide.none;
 
                         setState(() {
                           _dx =
                               (MediaQuery.of(context).size.width - _pillWidth) /
                                   2;
-                          _isTimerRunning = false;
+                          if (_isTimerRunning) _isTimerRunning = false;
                         });
                       },
                       onHorizontalDragUpdate: (DragUpdateDetails dragData) {
@@ -95,8 +120,8 @@ class _AddFeedingScreenState extends State<AddFeedingScreen> {
                   )
                 ],
               ),
-              TempFeedingLogWidget(),
-              Spacer(),
+              TempFeedingLogWidget(tempFeedingLog: _tempFeedingLog),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: Row(
@@ -104,15 +129,17 @@ class _AddFeedingScreenState extends State<AddFeedingScreen> {
                   children: [
                     ElevatedButton(
                       onPressed: () {},
-                      child: Container(
+                      child: const SizedBox(
                           width: 120, child: Center(child: Text('Cancel'))),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.pink.shade100,
                       ),
-                      onPressed: () {},
-                      child: Container(
+                      onPressed: () {
+                        _save();
+                      },
+                      child: const SizedBox(
                           width: 120, child: Center(child: Text('Save'))),
                     ),
                   ],
@@ -123,51 +150,5 @@ class _AddFeedingScreenState extends State<AddFeedingScreen> {
         ),
       ),
     );
-  }
-}
-
-class TimerWidget extends StatefulWidget {
-  const TimerWidget({Key? key, this.isRunning = false}) : super(key: key);
-  final bool isRunning;
-
-  @override
-  _TimerWidgetState createState() => _TimerWidgetState();
-}
-
-class _TimerWidgetState extends State<TimerWidget> {
-  Timer? _timer;
-  int _timeElapsed = 0;
-
-  @override
-  void didUpdateWidget(covariant TimerWidget oldWidget) {
-    if (widget.isRunning && !oldWidget.isRunning) {
-      _timer?.cancel();
-      _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-        setState(() {
-          _timeElapsed++;
-        });
-      });
-    } else {
-      _timer?.cancel();
-    }
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        child: Text(
-      _timeElapsed.toString(),
-      style: Theme.of(context).textTheme.headlineLarge,
-    ));
-  }
-}
-
-class TempFeedingLogWidget extends StatelessWidget {
-  const TempFeedingLogWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

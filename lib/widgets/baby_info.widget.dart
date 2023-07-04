@@ -14,8 +14,8 @@ class BabyInfoWidget extends StatefulWidget {
 class _BabyInfoWidgetState extends State<BabyInfoWidget> {
   late final TextEditingController _nameController;
   late final TextEditingController _birthController;
-  String _name = 'Name';
-  String _birthDate = 'Birth date';
+  final String _name = 'Name';
+  final String _birthDate = 'Birth date';
   final String _weight = 'Weight';
   final String _height = 'Height';
   final String _sex = 'Sex';
@@ -123,7 +123,7 @@ class _BabyInfoWidgetState extends State<BabyInfoWidget> {
                 BoxWidget(title: _sex),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             ElevatedButton(onPressed: () {}, child: const Text('Ready'))
           ],
         ),

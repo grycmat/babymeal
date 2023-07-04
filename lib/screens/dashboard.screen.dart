@@ -28,7 +28,7 @@ class DashboardScreen extends StatelessWidget {
         },
         child: const Icon(Icons.add),
       ),
-      body: DashboardContentWidget(),
+      body: const DashboardContentWidget(),
     );
   }
 }

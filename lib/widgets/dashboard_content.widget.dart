@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:animations/animations.dart';
 
 class DashboardContentWidget extends StatelessWidget {
   const DashboardContentWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Column(
         children: [
           Row(
@@ -63,7 +62,7 @@ class DashboardItem extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Card(
           elevation: 1,
-          child: Container(
+          child: SizedBox(
               height: 150,
               child: Padding(
                 padding: const EdgeInsets.all(24.0),
@@ -93,8 +92,8 @@ class LastEventWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return const Expanded(
         flex: 1,
-        child: Padding(padding: const EdgeInsets.all(12), child: Card()));
+        child: Padding(padding: EdgeInsets.all(12), child: Card()));
   }
 }
