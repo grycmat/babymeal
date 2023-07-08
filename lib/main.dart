@@ -18,6 +18,7 @@ class BabyMeal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
@@ -45,11 +46,10 @@ class EntryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder(
-          future: getIt.allReady(),
-          builder: (context, snapshot) =>
-              snapshot.hasData ? DashboardScreen() : Container()),
+    return FutureBuilder(
+      future: getIt.allReady(),
+      builder: (context, snapshot) =>
+          snapshot.hasData ? DashboardScreen() : Container(),
     );
   }
 }

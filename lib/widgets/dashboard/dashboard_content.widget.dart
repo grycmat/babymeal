@@ -32,7 +32,7 @@ class DashboardContentWidget extends StatelessWidget {
               DashboardItem(
                 flex: 2,
                 title: '1',
-                subtitle: 'Mood',
+                subtitle: 'Dipers',
               ),
               DashboardItem(
                 flex: 3,
@@ -41,9 +41,18 @@ class DashboardContentWidget extends StatelessWidget {
               ),
             ],
           ),
-          Text(
-            'Today',
-            style: Theme.of(context).textTheme.headlineMedium,
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Text(
+                  'Today',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+              )
+            ],
           ),
           NewItemsWidget(),
         ],
@@ -59,7 +68,7 @@ class NewItemsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: getIt.get<DbService>().feedings,
-      initialData: [],
+      initialData: const [],
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return Expanded(

@@ -1,4 +1,5 @@
 import 'package:babymeal/models/feeding_log/feeding.dart';
+import 'package:babymeal/models/feeding_log/feeding_log_item.dart';
 import 'package:injectable/injectable.dart';
 import 'package:isar/isar.dart';
 
@@ -16,6 +17,14 @@ class DbService {
       return log;
     });
   }
+
+  // Future<List<FeedingLogItem>> addFeedLogItems(List<FeedingLogItem> items) async {
+  //   return await isar.writeTxn<List<FeedingItems>>(() async {
+  //     await isar.feedingLogItems.putAll(items);
+
+  //     return items;
+  //   });
+  // }
 
   Future<List<Feeding>> get feedings async =>
       isar.collection<Feeding>().where().findAll();

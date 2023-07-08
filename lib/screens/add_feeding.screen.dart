@@ -48,7 +48,7 @@ class _AddFeedingScreenState extends State<AddFeedingScreen> {
   Future _save() async {
     Feeding log = Feeding(
       date: DateTime.now().toString(),
-      totalTime: '00:00:00',
+      totalTime: _totalTime.toString(),
       type: FeedingType.brest,
     )..items.addAll(_tempFeedingLog);
 
@@ -62,7 +62,6 @@ class _AddFeedingScreenState extends State<AddFeedingScreen> {
         title: const Text('Add feeding'),
       ),
       bottomSheet: BottomAppBar(
-        color: Colors.transparent,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -71,7 +70,11 @@ class _AddFeedingScreenState extends State<AddFeedingScreen> {
                 Navigator.pop(context);
               },
               child: const SizedBox(
-                  width: 120, child: Center(child: Text('Cancel'))),
+                width: 120,
+                child: Center(
+                  child: Text('Cancel'),
+                ),
+              ),
             ),
             OutlinedButton(
               style: ElevatedButton.styleFrom(

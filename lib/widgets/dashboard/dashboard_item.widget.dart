@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class DashboardItem extends StatelessWidget {
@@ -15,28 +17,35 @@ class DashboardItem extends StatelessWidget {
     return Expanded(
       flex: flex,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Card(
-          elevation: 1,
-          child: SizedBox(
-              height: 150,
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.headlineLarge,
+        padding: const EdgeInsets.all(4.0),
+        child: ClipRRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Card(
+              shadowColor: Colors.transparent,
+              color: Colors.white.withOpacity(0.5),
+              elevation: 1,
+              child: SizedBox(
+                  height: 150,
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          title,
+                          style: Theme.of(context).textTheme.headlineLarge,
+                        ),
+                        Text(
+                          subtitle,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        )
+                      ],
                     ),
-                    Text(
-                      subtitle,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    )
-                  ],
-                ),
-              )),
+                  )),
+            ),
+          ),
         ),
       ),
     );
