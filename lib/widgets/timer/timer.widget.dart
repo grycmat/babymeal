@@ -1,4 +1,4 @@
-import 'package:babymeal/models/feeding_log/temp_feeding_log_item.model.dart';
+import 'package:babymeal/models/feeding_log/feeding_log_item.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:async';
@@ -11,7 +11,7 @@ class TimerWidget extends StatefulWidget {
       required this.side})
       : super(key: key);
   final bool isRunning;
-  final Function(Duration, BreastSide) addItem;
+  final Function(Duration, Duration, BreastSide) addItem;
   final ValueNotifier<BreastSide> side;
 
   @override
@@ -19,6 +19,11 @@ class TimerWidget extends StatefulWidget {
 }
 
 class _TimerWidgetState extends State<TimerWidget> {
+  BreastSide? _currentSide;
+  Timer? _timer;
+  Duration _totalTime = Duration.zero;
+  Duration _sideTime = Duration.zero;
+
   @override
   void initState() {
     widget.side.addListener(() {
@@ -26,19 +31,21 @@ class _TimerWidgetState extends State<TimerWidget> {
         _timer?.cancel();
         _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
           setState(() {
-            _timeElapsed = _timeElapsed + const Duration(seconds: 1);
+            _currentSide = widget.side.value;
+            _sideTime = _sideTime + const Duration(seconds: 1);
+            _totalTime = _totalTime + const Duration(seconds: 1);
           });
         });
       } else {
         _timer?.cancel();
-        widget.addItem(_timeElapsed, widget.side.value);
+        widget.addItem(_totalTime, _sideTime, _currentSide!);
+        setState(() {
+          _sideTime = Duration.zero;
+        });
       }
     });
     super.initState();
   }
-
-  Timer? _timer;
-  Duration _timeElapsed = Duration.zero;
 
   _timeString(Duration duration) {
     final str = duration.toString().split(':');
@@ -49,7 +56,7 @@ class _TimerWidgetState extends State<TimerWidget> {
   Widget build(BuildContext context) {
     return Container(
       child: Text(
-        _timeString(_timeElapsed),
+        _timeString(_totalTime),
         style: Theme.of(context).textTheme.headlineLarge,
       ),
     );

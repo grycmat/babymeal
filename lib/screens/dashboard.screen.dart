@@ -1,4 +1,4 @@
-import 'package:babymeal/widgets/dashboard_content.widget.dart';
+import 'package:babymeal/widgets/dashboard/dashboard_content.widget.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -24,7 +24,7 @@ class DashboardScreen extends StatelessWidget {
       ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/add_baby');
+          Navigator.pushNamed(context, '/add_feeding');
         },
         child: const Icon(Icons.add),
       ),

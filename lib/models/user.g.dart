@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'baby.model.dart';
+part of 'user.dart';
 
 // **************************************************************************
 // IsarCollectionGenerator
@@ -9,13 +9,13 @@ part of 'baby.model.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetBabyCollection on Isar {
-  IsarCollection<Baby> get babys => this.collection();
+extension GetUserCollection on Isar {
+  IsarCollection<User> get users => this.collection();
 }
 
-const BabySchema = CollectionSchema(
-  name: r'Baby',
-  id: -8631013617778749638,
+const UserSchema = CollectionSchema(
+  name: r'User',
+  id: -7838171048429979076,
   properties: {
     r'name': PropertySchema(
       id: 0,
@@ -23,22 +23,22 @@ const BabySchema = CollectionSchema(
       type: IsarType.string,
     )
   },
-  estimateSize: _babyEstimateSize,
-  serialize: _babySerialize,
-  deserialize: _babyDeserialize,
-  deserializeProp: _babyDeserializeProp,
+  estimateSize: _userEstimateSize,
+  serialize: _userSerialize,
+  deserialize: _userDeserialize,
+  deserializeProp: _userDeserializeProp,
   idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _babyGetId,
-  getLinks: _babyGetLinks,
-  attach: _babyAttach,
+  getId: _userGetId,
+  getLinks: _userGetLinks,
+  attach: _userAttach,
   version: '3.1.0+1',
 );
 
-int _babyEstimateSize(
-  Baby object,
+int _userEstimateSize(
+  User object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -47,8 +47,8 @@ int _babyEstimateSize(
   return bytesCount;
 }
 
-void _babySerialize(
-  Baby object,
+void _userSerialize(
+  User object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -56,20 +56,20 @@ void _babySerialize(
   writer.writeString(offsets[0], object.name);
 }
 
-Baby _babyDeserialize(
+User _userDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Baby(
+  final object = User(
     name: reader.readString(offsets[0]),
   );
   object.id = id;
   return object;
 }
 
-P _babyDeserializeProp<P>(
+P _userDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -83,28 +83,28 @@ P _babyDeserializeProp<P>(
   }
 }
 
-Id _babyGetId(Baby object) {
+Id _userGetId(User object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _babyGetLinks(Baby object) {
+List<IsarLinkBase<dynamic>> _userGetLinks(User object) {
   return [];
 }
 
-void _babyAttach(IsarCollection<dynamic> col, Id id, Baby object) {
+void _userAttach(IsarCollection<dynamic> col, Id id, User object) {
   object.id = id;
 }
 
-extension BabyQueryWhereSort on QueryBuilder<Baby, Baby, QWhere> {
-  QueryBuilder<Baby, Baby, QAfterWhere> anyId() {
+extension UserQueryWhereSort on QueryBuilder<User, User, QWhere> {
+  QueryBuilder<User, User, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension BabyQueryWhere on QueryBuilder<Baby, Baby, QWhereClause> {
-  QueryBuilder<Baby, Baby, QAfterWhereClause> idEqualTo(Id id) {
+extension UserQueryWhere on QueryBuilder<User, User, QWhereClause> {
+  QueryBuilder<User, User, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -113,7 +113,7 @@ extension BabyQueryWhere on QueryBuilder<Baby, Baby, QWhereClause> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<User, User, QAfterWhereClause> idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -135,7 +135,7 @@ extension BabyQueryWhere on QueryBuilder<Baby, Baby, QWhereClause> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<User, User, QAfterWhereClause> idGreaterThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -144,7 +144,7 @@ extension BabyQueryWhere on QueryBuilder<Baby, Baby, QWhereClause> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<User, User, QAfterWhereClause> idLessThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -153,7 +153,7 @@ extension BabyQueryWhere on QueryBuilder<Baby, Baby, QWhereClause> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterWhereClause> idBetween(
+  QueryBuilder<User, User, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -170,8 +170,8 @@ extension BabyQueryWhere on QueryBuilder<Baby, Baby, QWhereClause> {
   }
 }
 
-extension BabyQueryFilter on QueryBuilder<Baby, Baby, QFilterCondition> {
-  QueryBuilder<Baby, Baby, QAfterFilterCondition> idEqualTo(Id value) {
+extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
+  QueryBuilder<User, User, QAfterFilterCondition> idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -180,7 +180,7 @@ extension BabyQueryFilter on QueryBuilder<Baby, Baby, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<User, User, QAfterFilterCondition> idGreaterThan(
     Id value, {
     bool include = false,
   }) {
@@ -193,7 +193,7 @@ extension BabyQueryFilter on QueryBuilder<Baby, Baby, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterFilterCondition> idLessThan(
+  QueryBuilder<User, User, QAfterFilterCondition> idLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -206,7 +206,7 @@ extension BabyQueryFilter on QueryBuilder<Baby, Baby, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterFilterCondition> idBetween(
+  QueryBuilder<User, User, QAfterFilterCondition> idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -223,7 +223,7 @@ extension BabyQueryFilter on QueryBuilder<Baby, Baby, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterFilterCondition> nameEqualTo(
+  QueryBuilder<User, User, QAfterFilterCondition> nameEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -236,7 +236,7 @@ extension BabyQueryFilter on QueryBuilder<Baby, Baby, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterFilterCondition> nameGreaterThan(
+  QueryBuilder<User, User, QAfterFilterCondition> nameGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -251,7 +251,7 @@ extension BabyQueryFilter on QueryBuilder<Baby, Baby, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterFilterCondition> nameLessThan(
+  QueryBuilder<User, User, QAfterFilterCondition> nameLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -266,7 +266,7 @@ extension BabyQueryFilter on QueryBuilder<Baby, Baby, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterFilterCondition> nameBetween(
+  QueryBuilder<User, User, QAfterFilterCondition> nameBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -285,7 +285,7 @@ extension BabyQueryFilter on QueryBuilder<Baby, Baby, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterFilterCondition> nameStartsWith(
+  QueryBuilder<User, User, QAfterFilterCondition> nameStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -298,7 +298,7 @@ extension BabyQueryFilter on QueryBuilder<Baby, Baby, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterFilterCondition> nameEndsWith(
+  QueryBuilder<User, User, QAfterFilterCondition> nameEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -311,7 +311,7 @@ extension BabyQueryFilter on QueryBuilder<Baby, Baby, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterFilterCondition> nameContains(String value,
+  QueryBuilder<User, User, QAfterFilterCondition> nameContains(String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -322,7 +322,7 @@ extension BabyQueryFilter on QueryBuilder<Baby, Baby, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterFilterCondition> nameMatches(String pattern,
+  QueryBuilder<User, User, QAfterFilterCondition> nameMatches(String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -333,7 +333,7 @@ extension BabyQueryFilter on QueryBuilder<Baby, Baby, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterFilterCondition> nameIsEmpty() {
+  QueryBuilder<User, User, QAfterFilterCondition> nameIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'name',
@@ -342,7 +342,7 @@ extension BabyQueryFilter on QueryBuilder<Baby, Baby, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterFilterCondition> nameIsNotEmpty() {
+  QueryBuilder<User, User, QAfterFilterCondition> nameIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'name',
@@ -352,52 +352,52 @@ extension BabyQueryFilter on QueryBuilder<Baby, Baby, QFilterCondition> {
   }
 }
 
-extension BabyQueryObject on QueryBuilder<Baby, Baby, QFilterCondition> {}
+extension UserQueryObject on QueryBuilder<User, User, QFilterCondition> {}
 
-extension BabyQueryLinks on QueryBuilder<Baby, Baby, QFilterCondition> {}
+extension UserQueryLinks on QueryBuilder<User, User, QFilterCondition> {}
 
-extension BabyQuerySortBy on QueryBuilder<Baby, Baby, QSortBy> {
-  QueryBuilder<Baby, Baby, QAfterSortBy> sortByName() {
+extension UserQuerySortBy on QueryBuilder<User, User, QSortBy> {
+  QueryBuilder<User, User, QAfterSortBy> sortByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterSortBy> sortByNameDesc() {
+  QueryBuilder<User, User, QAfterSortBy> sortByNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.desc);
     });
   }
 }
 
-extension BabyQuerySortThenBy on QueryBuilder<Baby, Baby, QSortThenBy> {
-  QueryBuilder<Baby, Baby, QAfterSortBy> thenById() {
+extension UserQuerySortThenBy on QueryBuilder<User, User, QSortThenBy> {
+  QueryBuilder<User, User, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<User, User, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterSortBy> thenByName() {
+  QueryBuilder<User, User, QAfterSortBy> thenByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
     });
   }
 
-  QueryBuilder<Baby, Baby, QAfterSortBy> thenByNameDesc() {
+  QueryBuilder<User, User, QAfterSortBy> thenByNameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.desc);
     });
   }
 }
 
-extension BabyQueryWhereDistinct on QueryBuilder<Baby, Baby, QDistinct> {
-  QueryBuilder<Baby, Baby, QDistinct> distinctByName(
+extension UserQueryWhereDistinct on QueryBuilder<User, User, QDistinct> {
+  QueryBuilder<User, User, QDistinct> distinctByName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'name', caseSensitive: caseSensitive);
@@ -405,14 +405,14 @@ extension BabyQueryWhereDistinct on QueryBuilder<Baby, Baby, QDistinct> {
   }
 }
 
-extension BabyQueryProperty on QueryBuilder<Baby, Baby, QQueryProperty> {
-  QueryBuilder<Baby, int, QQueryOperations> idProperty() {
+extension UserQueryProperty on QueryBuilder<User, User, QQueryProperty> {
+  QueryBuilder<User, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<Baby, String, QQueryOperations> nameProperty() {
+  QueryBuilder<User, String, QQueryOperations> nameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'name');
     });

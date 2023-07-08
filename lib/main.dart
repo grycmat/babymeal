@@ -1,11 +1,13 @@
 import 'package:babymeal/dependencies_config.dart';
 import 'package:babymeal/screens/add_baby_form.screen.dart';
 import 'package:babymeal/screens/add_feeding.screen.dart';
+import 'package:babymeal/screens/dashboard.screen.dart';
 import 'package:babymeal/screens/first_run.screen.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  configureDependencies();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
   runApp(const BabyMeal());
 }
 
@@ -33,6 +35,7 @@ class BabyMeal extends StatelessWidget {
         routes: {
           '/add_baby': (context) => const AddBabyFormScreen(),
           '/first_run': (context) => const FirstRunScreen(),
+          '/add_feeding': (context) => const AddFeedingScreen(),
         });
   }
 }
@@ -42,8 +45,11 @@ class EntryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: AddFeedingScreen(),
+    return Scaffold(
+      body: FutureBuilder(
+          future: getIt.allReady(),
+          builder: (context, snapshot) =>
+              snapshot.hasData ? DashboardScreen() : Container()),
     );
   }
 }

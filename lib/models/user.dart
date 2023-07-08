@@ -1,12 +1,11 @@
 import 'package:isar/isar.dart';
 
-part 'baby.model.g.dart';
+part 'user.g.dart';
 
 @collection
-class Baby {
+class User {
   Id id = Isar.autoIncrement;
-
   String name;
 
-  Baby({required this.name});
+  User({required this.name});
 }
