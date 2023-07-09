@@ -1,3 +1,5 @@
+import 'package:animations/animations.dart';
+import 'package:babymeal/screens/add_feeding.screen.dart';
 import 'package:babymeal/widgets/dashboard/dashboard_content.widget.dart';
 import 'package:flutter/material.dart';
 
@@ -35,11 +37,20 @@ class DashboardScreen extends StatelessWidget {
               label: 'Calendar',
               tooltip: 'Calendar'),
         ]),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/add_feeding');
+        floatingActionButton: OpenContainer(
+          closedShape: const CircleBorder(),
+          transitionType: ContainerTransitionType.fadeThrough,
+          openBuilder: (context, action) {
+            return const AddFeedingScreen();
           },
-          child: const Icon(Icons.add),
+          closedBuilder: (context, action) {
+            return FloatingActionButton(
+              onPressed: () {
+                action();
+              },
+              child: const Icon(Icons.add),
+            );
+          },
         ),
         body: const DashboardContentWidget(),
       ),

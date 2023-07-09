@@ -14,10 +14,15 @@ class DashboardContentWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              DashboardItem(
-                flex: 3,
-                title: '4',
-                subtitle: 'Feeding logs',
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/add_feeding');
+                },
+                child: DashboardItem(
+                  flex: 3,
+                  title: '4',
+                  subtitle: 'Feeding logs',
+                ),
               ),
               DashboardItem(
                 flex: 2,
@@ -26,7 +31,7 @@ class DashboardContentWidget extends StatelessWidget {
               )
             ],
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               DashboardItem(
@@ -54,7 +59,7 @@ class DashboardContentWidget extends StatelessWidget {
               )
             ],
           ),
-          NewItemsWidget(),
+          const NewItemsWidget(),
         ],
       ),
     );
