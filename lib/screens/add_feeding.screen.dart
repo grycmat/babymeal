@@ -3,6 +3,7 @@ import 'package:babymeal/models/feeding_log/feeding.dart';
 import 'package:babymeal/models/feeding_log/feeding_log_item.dart';
 import 'package:babymeal/services/db.service.dart';
 import 'package:babymeal/widgets/feeding/temp_feeding_log.widget.dart';
+import 'package:babymeal/widgets/scaffold_container.widget.dart';
 import 'package:babymeal/widgets/timer/timer.widget.dart';
 import 'package:flutter/material.dart';
 
@@ -50,133 +51,136 @@ class _AddFeedingScreenState extends State<AddFeedingScreen> {
       date: DateTime.now().toString(),
       totalTime: _totalTime.toString(),
       type: FeedingType.brest,
-    )..items.addAll(_tempFeedingLog);
+    );
 
-    return await getIt<DbService>().addFeedLog(log);
+    return await getIt<DbService>().addFeedLog(log, _tempFeedingLog);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Add feeding'),
-      ),
-      bottomSheet: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            OutlinedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const SizedBox(
-                width: 120,
-                child: Center(
-                  child: Text('Cancel'),
-                ),
-              ),
-            ),
-            OutlinedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.pink.shade100,
-              ),
-              onPressed: () async {
-                await _save();
-                Navigator.pop(context);
-              },
-              child: const SizedBox(
-                width: 120,
-                child: Center(
-                  child: Text('Save'),
-                ),
-              ),
-            ),
-          ],
+    return ScaffoldContainerWidget(
+      content: Scaffold(
+        appBar: AppBar(
+          title: const Text('Add feeding'),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SizedBox(
-          height: double.infinity,
-          width: double.infinity,
-          child: Center(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24.0),
-                  child: TimerWidget(
-                    isRunning: _isTimerRunning,
-                    addItem: _addItem,
-                    side: _side,
+        bottomSheet: BottomAppBar(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              OutlinedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const SizedBox(
+                  width: 120,
+                  child: Center(
+                    child: Text('Cancel'),
                   ),
                 ),
-                Stack(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: Colors.pink.shade100,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
+              ),
+              OutlinedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.pink.shade100,
+                ),
+                onPressed: () {
+                  _save().then((_) => Navigator.pop(context));
+                },
+                child: const SizedBox(
+                  width: 120,
+                  child: Center(
+                    child: Text('Save'),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: Center(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 24.0),
+                    child: TimerWidget(
+                      isRunning: _isTimerRunning,
+                      addItem: _addItem,
+                      side: _side,
                     ),
-                    Positioned(
-                      left: _dx,
-                      child: GestureDetector(
-                        onHorizontalDragEnd: (details) {
-                          if (_dx > 120 && !_isTimerRunning) {
-                            setState(() {
-                              _dx = MediaQuery.of(context).size.width -
-                                  _pillWidth;
-                              if (!_isTimerRunning) _isTimerRunning = true;
-                            });
-                            _side.value = BreastSide.right;
-                            return;
-                          }
-                          if (_dx < 40 && !_isTimerRunning) {
-                            setState(() {
-                              if (!_isTimerRunning) _isTimerRunning = true;
-                              _dx = 0;
-                            });
-                            _side.value = BreastSide.left;
-                            return;
-                          }
-
-                          _side.value = BreastSide.none;
-
-                          setState(() {
-                            _dx = (MediaQuery.of(context).size.width -
-                                    _pillWidth) /
-                                2;
-                            if (_isTimerRunning) _isTimerRunning = false;
-                          });
-                        },
-                        onHorizontalDragUpdate: (DragUpdateDetails dragData) {
-                          var nextPosition = _dx += dragData.delta.dx;
-                          setState(() {
-                            _dx = nextPosition.clamp(0,
-                                MediaQuery.of(context).size.width - _pillWidth);
-                          });
-                        },
-                        child: Container(
-                          height: _pillHeight,
-                          width: _pillWidth,
-                          decoration: BoxDecoration(
-                            color: Colors.amber.shade100,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
+                  ),
+                  Stack(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.pink.shade100,
+                          borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                    )
-                  ],
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child:
-                        TempFeedingLogWidget(tempFeedingLog: _tempFeedingLog),
+                      Positioned(
+                        left: _dx,
+                        child: GestureDetector(
+                          onHorizontalDragEnd: (details) {
+                            if (_dx > 120 && !_isTimerRunning) {
+                              setState(() {
+                                _dx = MediaQuery.of(context).size.width -
+                                    _pillWidth;
+                                if (!_isTimerRunning) _isTimerRunning = true;
+                              });
+                              _side.value = BreastSide.right;
+                              return;
+                            }
+                            if (_dx < 40 && !_isTimerRunning) {
+                              setState(() {
+                                if (!_isTimerRunning) _isTimerRunning = true;
+                                _dx = 0;
+                              });
+                              _side.value = BreastSide.left;
+                              return;
+                            }
+
+                            _side.value = BreastSide.none;
+
+                            setState(() {
+                              _dx = (MediaQuery.of(context).size.width -
+                                      _pillWidth) /
+                                  2;
+                              if (_isTimerRunning) _isTimerRunning = false;
+                            });
+                          },
+                          onHorizontalDragUpdate: (DragUpdateDetails dragData) {
+                            var nextPosition = _dx += dragData.delta.dx;
+                            setState(() {
+                              _dx = nextPosition.clamp(
+                                  0,
+                                  MediaQuery.of(context).size.width -
+                                      _pillWidth);
+                            });
+                          },
+                          child: Container(
+                            height: _pillHeight,
+                            width: _pillWidth,
+                            decoration: BoxDecoration(
+                              color: Colors.amber.shade100,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child:
+                          TempFeedingLogWidget(tempFeedingLog: _tempFeedingLog),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

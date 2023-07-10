@@ -23,12 +23,16 @@ class _TimerWidgetState extends State<TimerWidget> {
   Timer? _timer;
   Duration _totalTime = Duration.zero;
   Duration _sideTime = Duration.zero;
+  bool _timerRunning = false;
 
   @override
   void initState() {
     widget.side.addListener(() {
       if (widget.side.value != BreastSide.none) {
         _timer?.cancel();
+        setState(() {
+          _timerRunning = true;
+        });
         _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
           setState(() {
             _currentSide = widget.side.value;
@@ -41,10 +45,17 @@ class _TimerWidgetState extends State<TimerWidget> {
         widget.addItem(_totalTime, _sideTime, _currentSide!);
         setState(() {
           _sideTime = Duration.zero;
+          _timerRunning = false;
         });
       }
     });
     super.initState();
+  }
+
+  @override
+  dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   _timeString(Duration duration) {
@@ -55,9 +66,17 @@ class _TimerWidgetState extends State<TimerWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text(
-        _timeString(_totalTime),
-        style: Theme.of(context).textTheme.headlineLarge,
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.5),
+        shape: BoxShape.circle,
+      ),
+      child: AnimatedPadding(
+        duration: const Duration(milliseconds: 300),
+        padding: EdgeInsets.all(_timerRunning ? 42 : 36),
+        child: Text(
+          _timeString(_totalTime),
+          style: Theme.of(context).textTheme.headlineLarge,
+        ),
       ),
     );
   }

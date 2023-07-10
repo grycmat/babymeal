@@ -29,7 +29,14 @@ const UserSchema = CollectionSchema(
   deserializeProp: _userDeserializeProp,
   idName: r'id',
   indexes: {},
-  links: {},
+  links: {
+    r'babies': LinkSchema(
+      id: -5883441010061718840,
+      name: r'babies',
+      target: r'Baby',
+      single: false,
+    )
+  },
   embeddedSchemas: {},
   getId: _userGetId,
   getLinks: _userGetLinks,
@@ -63,7 +70,7 @@ User _userDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = User(
-    name: reader.readString(offsets[0]),
+    name: reader.readStringOrNull(offsets[0]) ?? 'Proud parent 😎',
   );
   object.id = id;
   return object;
@@ -77,7 +84,7 @@ P _userDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset) ?? 'Proud parent 😎') as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -88,11 +95,12 @@ Id _userGetId(User object) {
 }
 
 List<IsarLinkBase<dynamic>> _userGetLinks(User object) {
-  return [];
+  return [object.babies];
 }
 
 void _userAttach(IsarCollection<dynamic> col, Id id, User object) {
   object.id = id;
+  object.babies.attach(col, col.isar.collection<Baby>(), r'babies', id);
 }
 
 extension UserQueryWhereSort on QueryBuilder<User, User, QWhere> {
@@ -354,7 +362,62 @@ extension UserQueryFilter on QueryBuilder<User, User, QFilterCondition> {
 
 extension UserQueryObject on QueryBuilder<User, User, QFilterCondition> {}
 
-extension UserQueryLinks on QueryBuilder<User, User, QFilterCondition> {}
+extension UserQueryLinks on QueryBuilder<User, User, QFilterCondition> {
+  QueryBuilder<User, User, QAfterFilterCondition> babies(FilterQuery<Baby> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.link(q, r'babies');
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> babiesLengthEqualTo(
+      int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'babies', length, true, length, true);
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> babiesIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'babies', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> babiesIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'babies', 0, false, 999999, true);
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> babiesLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'babies', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> babiesLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'babies', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<User, User, QAfterFilterCondition> babiesLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(
+          r'babies', lower, includeLower, upper, includeUpper);
+    });
+  }
+}
 
 extension UserQuerySortBy on QueryBuilder<User, User, QSortBy> {
   QueryBuilder<User, User, QAfterSortBy> sortByName() {

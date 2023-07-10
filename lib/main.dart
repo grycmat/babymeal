@@ -21,6 +21,7 @@ class BabyMeal extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
+          scaffoldBackgroundColor: Colors.transparent,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
           useMaterial3: true,
           fontFamily: 'Comfortaa',
@@ -49,7 +50,7 @@ class EntryScreen extends StatelessWidget {
     return FutureBuilder(
       future: getIt.allReady(),
       builder: (context, snapshot) =>
-          snapshot.hasData ? DashboardScreen() : Container(),
+          snapshot.hasData ? const DashboardScreen() : Container(),
     );
   }
 }

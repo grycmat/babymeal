@@ -1,8 +1,22 @@
+import 'package:babymeal/models/user.dart';
 import 'package:flutter/material.dart';
 
-class AccountNameWidget extends StatelessWidget {
-  const AccountNameWidget({Key? key, required this.animateTo}) : super(key: key);
+class AccountNameWidget extends StatefulWidget {
+  const AccountNameWidget({Key? key, required this.animateTo})
+      : super(key: key);
   final Function animateTo;
+
+  @override
+  State<AccountNameWidget> createState() => _AccountNameWidgetState();
+}
+
+class _AccountNameWidgetState extends State<AccountNameWidget> {
+  final TextEditingController _nameController = TextEditingController();
+
+  _saveAccount() {
+    var user = User(name: _nameController.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -16,10 +30,11 @@ class AccountNameWidget extends StatelessWidget {
               'How should I call you?',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
-            const Padding(
-              padding: EdgeInsets.all(32.0),
+            Padding(
+              padding: const EdgeInsets.all(32.0),
               child: TextField(
-                decoration: InputDecoration(
+                controller: _nameController,
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Proud parent 😎',
                 ),
@@ -27,7 +42,8 @@ class AccountNameWidget extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                animateTo(2);
+                _saveAccount();
+                widget.animateTo(2);
               },
               child: const Text('Next'),
             )

@@ -18,10 +18,13 @@ class DashboardContentWidget extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(context, '/add_feeding');
                 },
-                child: DashboardItem(
-                  flex: 3,
-                  title: '4',
-                  subtitle: 'Feeding logs',
+                child: FutureBuilder(
+                  future: getIt.get<DbService>().feedingsCount,
+                  builder: (_, AsyncSnapshot<int> snapshot) => DashboardItem(
+                    flex: 3,
+                    title: snapshot.hasData ? snapshot.data.toString() : '',
+                    subtitle: 'Feeding logs',
+                  ),
                 ),
               ),
               DashboardItem(

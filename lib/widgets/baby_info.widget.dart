@@ -31,6 +31,8 @@ class _BabyInfoWidgetState extends State<BabyInfoWidget> {
     super.initState();
   }
 
+  _saveBaby() {}
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -124,7 +126,11 @@ class _BabyInfoWidgetState extends State<BabyInfoWidget> {
               ],
             ),
             const Spacer(),
-            ElevatedButton(onPressed: () {}, child: const Text('Ready'))
+            ElevatedButton(
+                onPressed: () {
+                  _saveBaby();
+                },
+                child: const Text('Ready'))
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:babymeal/screens/add_feeding.screen.dart';
 import 'package:babymeal/widgets/dashboard/dashboard_content.widget.dart';
+import 'package:babymeal/widgets/scaffold_container.widget.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -8,18 +9,8 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color.fromARGB(255, 228, 182, 45),
-            Color.fromARGB(255, 202, 57, 105),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
-      child: Scaffold(
+    return ScaffoldContainerWidget(
+      content: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           backgroundColor: Colors.transparent,

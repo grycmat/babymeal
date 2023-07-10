@@ -1,3 +1,4 @@
+import 'package:babymeal/models/baby.dart';
 import 'package:isar/isar.dart';
 
 part 'user.g.dart';
@@ -6,6 +7,7 @@ part 'user.g.dart';
 class User {
   Id id = Isar.autoIncrement;
   String name;
+  final babies = IsarLinks<Baby>();
 
-  User({required this.name});
+  User({this.name = 'Proud parent 😎'});
 }
