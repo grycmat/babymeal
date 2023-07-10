@@ -51,6 +51,8 @@ class DbService {
   Future<List<Feeding>> get feedings async =>
       isar.collection<Feeding>().where().findAll();
 
+  Stream<List<Feeding>> feedingsListener() => isar.feedings.where().watch();
+
   Future<int> get feedingsCount async =>
       isar.collection<Feeding>().where().count();
 }

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:babymeal/models/feeding_log/feeding_log_item.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +26,7 @@ class _TimerWidgetState extends State<TimerWidget> {
   Duration _totalTime = Duration.zero;
   Duration _sideTime = Duration.zero;
   bool _timerRunning = false;
+  bool _grow = false;
 
   @override
   void initState() {
@@ -35,6 +38,7 @@ class _TimerWidgetState extends State<TimerWidget> {
         });
         _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
           setState(() {
+            _grow = !_grow;
             _currentSide = widget.side.value;
             _sideTime = _sideTime + const Duration(seconds: 1);
             _totalTime = _totalTime + const Duration(seconds: 1);
@@ -65,19 +69,26 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.5),
-        shape: BoxShape.circle,
-      ),
-      child: AnimatedPadding(
-        duration: const Duration(milliseconds: 300),
-        padding: EdgeInsets.all(_timerRunning ? 42 : 36),
-        child: Text(
-          _timeString(_totalTime),
-          style: Theme.of(context).textTheme.headlineLarge,
+    return Stack(alignment: Alignment.center, children: [
+      Container(
+        width: 150,
+        height: 150,
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.5),
+          shape: BoxShape.circle,
+        ),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+          child: Container(
+            width: 100,
+            height: 100,
+          ),
         ),
       ),
-    );
+      Text(
+        _timeString(_totalTime),
+        style: Theme.of(context).textTheme.headlineLarge,
+      ),
+    ]);
   }
 }

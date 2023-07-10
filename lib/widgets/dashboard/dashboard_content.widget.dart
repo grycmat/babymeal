@@ -74,9 +74,9 @@ class NewItemsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: getIt.get<DbService>().feedings,
-      initialData: const [],
+    return StreamBuilder(
+      stream: getIt.get<DbService>().feedingsListener(),
+      initialData: getIt.get<DbService>().feedings,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return Expanded(
