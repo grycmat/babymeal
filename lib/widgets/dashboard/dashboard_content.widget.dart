@@ -27,7 +27,7 @@ class DashboardContentWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              DashboardItem(
+              const DashboardItem(
                 flex: 2,
                 title: '2',
                 subtitle: 'Schedule',
@@ -76,7 +76,7 @@ class NewItemsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: getIt.get<DbService>().feedingsListener(),
-      initialData: getIt.get<DbService>().feedings,
+      initialData: const [],
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return Expanded(

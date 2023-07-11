@@ -58,16 +58,16 @@ class TempFeedingLogItemWidget extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.cancel),
+                icon: const Icon(Icons.cancel),
               )
             ]),
       ),
     ).animate(effects: [
-      FadeEffect(
+      const FadeEffect(
         curve: Curves.easeInOut,
         duration: Duration(milliseconds: 300),
       ),
-      SlideEffect(
+      const SlideEffect(
         curve: Curves.easeInOut,
         duration: Duration(milliseconds: 300),
       )

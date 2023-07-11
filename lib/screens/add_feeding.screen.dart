@@ -1,11 +1,10 @@
-import 'package:babymeal/dependencies_config.dart';
-import 'package:babymeal/models/feeding_log/feeding.dart';
+
 import 'package:babymeal/models/feeding_log/feeding_log_item.dart';
-import 'package:babymeal/services/db.service.dart';
 import 'package:babymeal/widgets/feeding/temp_feeding_log.widget.dart';
 import 'package:babymeal/widgets/scaffold_container.widget.dart';
 import 'package:babymeal/widgets/timer/timer.widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AddFeedingScreen extends StatefulWidget {
   const AddFeedingScreen({Key? key}) : super(key: key);
@@ -15,6 +14,8 @@ class AddFeedingScreen extends StatefulWidget {
 }
 
 class _AddFeedingScreenState extends State<AddFeedingScreen> {
+  static const platform = MethodChannel('babymeal.flutter.dev/battery');
+
   final double _pillWidth = 120;
   final double _pillHeight = 60;
   bool _isTimerRunning = false;
@@ -47,13 +48,14 @@ class _AddFeedingScreenState extends State<AddFeedingScreen> {
   }
 
   Future _save() async {
-    Feeding log = Feeding(
-      date: DateTime.now().toString(),
-      totalTime: _totalTime.toString(),
-      type: FeedingType.brest,
-    );
+    platform.invokeMethod('asdfasdf').then((value) => print(value));
+    // Feeding log = Feeding(
+    //   date: DateTime.now().toString(),
+    //   totalTime: _totalTime.toString(),
+    //   type: FeedingType.brest,
+    // );
 
-    return await getIt<DbService>().addFeedLog(log, _tempFeedingLog);
+    // return await getIt<DbService>().addFeedLog(log, _tempFeedingLog);
   }
 
   @override
